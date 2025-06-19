@@ -6,17 +6,24 @@ import {
   getAllUsersController,
   getUserByIdController,
   updateUserController,
-} from "../controllers/user";
-import { userSchemaValidator } from "../validators";
-import { roleCheck, superAdminByPass, tokenCheck } from "../middlewares";
+} from "../controllers/users";
+import { updateUserSchemaValidator, userSchemaValidator } from "../validators";
+import {
+  roleCheck,
+  superAdminByPass,
+  tokenCheck,
+  validateRequestBody,
+} from "../middlewares";
 
 export const userRouter = Router();
 
-userRouter.route("/").post(
-  superAdminByPass(tokenCheck, roleCheck("ADMIN")),
-  userSchemaValidator,
-  createUserController
-);
+userRouter
+  .route("/")
+  .post(
+    superAdminByPass(tokenCheck, roleCheck("ADMIN")),
+    ...validateRequestBody(userSchemaValidator),
+    createUserController
+  );
 
 userRouter.use(tokenCheck);
 
@@ -27,5 +34,9 @@ userRouter
 userRouter
   .route("/:id")
   .get(roleCheck("ADMIN", "MODERATOR"), getUserByIdController)
-  .put(roleCheck("ADMIN"), updateUserController)
+  .put(
+    roleCheck("ADMIN"),
+    ...validateRequestBody(updateUserSchemaValidator),
+    updateUserController
+  )
   .delete(roleCheck("ADMIN"), deleteUserController);

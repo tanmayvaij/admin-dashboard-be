@@ -4,6 +4,11 @@ import { prisma } from "../../database";
 
 export const updateUserController = async (req: Request, res: Response) => {
   const updates = req.body;
+
+  delete updates.id;
+  delete updates.createdAt;
+  delete updates.updatedAt;
+
   if (updates.password) updates.password = await hash(updates.password, 12);
 
   try {

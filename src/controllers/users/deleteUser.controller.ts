@@ -4,6 +4,7 @@ import { prisma } from "../../database";
 export const deleteUserController = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.params.id } });
+
     if (!user) {
       res.status(404).json({ errorMessage: "User not found" });
       return;
