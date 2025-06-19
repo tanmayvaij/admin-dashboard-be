@@ -17,6 +17,7 @@ export const tokenCheck = (req: Request, res: Response, next: NextFunction) => {
       .status(401)
       .json({ errorMessage: "Unauthorized access, token not provided" });
     return;
+
   }
 
   const token = authHeaders.split(" ")[1];

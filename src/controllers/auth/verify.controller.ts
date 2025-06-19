@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 
 export const verifyController = (req: Request, res: Response) => {
-  res.status(200).json(req.user);
+  try {
+    res.status(200).json(req.user);
+  } catch (err) {
+    res.status(500).json({ errorMessage: err });
+  }
 };
