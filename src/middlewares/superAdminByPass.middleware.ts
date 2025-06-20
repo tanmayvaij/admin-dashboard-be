@@ -11,18 +11,15 @@ type middleware = (
 export const superAdminByPass = (...middlewares: middleware[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     if ((await prisma.user.count()) !== 0) {
-      req.user.role = "ADMIN";
-
       let i = 0;
 
       const run = () => {
         const middleware = middlewares[i++];
-        if (!middleware) {
-          next();
-          return;
-        }
+        if (!middleware) next();
         middleware(req, res, run);
       };
+      
+      run();
     }
     next();
   };

@@ -7,8 +7,10 @@ import {
   getProductByIdController,
   updateProductController,
 } from "../controllers/products";
-import { productSchemaValidator } from "../validators/productSchema.validator";
-import { updateProductSchemaValidator } from "../validators/updateProductSchema.validator";
+import {
+  productSchemaValidator,
+  updateProductSchemaValidator,
+} from "../validators";
 
 export const productRouter = Router();
 

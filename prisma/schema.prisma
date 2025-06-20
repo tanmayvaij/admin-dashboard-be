@@ -31,7 +31,7 @@ enum UserAction {
 }
 
 model User {
-  id               String    @unique @default(nanoid())
+  id               String    @unique @default(nanoid()) @id
   email            String    @unique
   password         String
   role             Role      @default(USER)
@@ -41,7 +41,7 @@ model User {
 }
 
 model Product {
-  id          String   @unique @default(nanoid())
+  id          String   @unique @default(nanoid()) @id
   name        String
   description String
   price       Int
@@ -50,7 +50,7 @@ model Product {
 }
 
 model AuditLog {
-  id           String     @unique @default(nanoid())
+  id           String     @unique @default(nanoid()) @id
   action       UserAction
   actorId      String?
   target       String?

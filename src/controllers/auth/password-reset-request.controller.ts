@@ -5,12 +5,12 @@ import { createLog, sendTestEmail } from "../../utils";
 
 export const requestPasswordReset = async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: req.body.id } });
+    const user = await prisma.user.findUnique({ where: { id: req.user.id } });
     if (!user) {
       await createLog({
         action: "PASS_RESET_REQ",
         actorId: req.user.id ?? null,
-        target: req.body.id,
+        target: req.user.id,
         statusCode: 404,
         ipAddress: req.ip ?? null,
         userAgent: req.headers["user-agent"] ?? null,
@@ -26,7 +26,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     });
 
     await prisma.user.update({
-      where: { id: req.body.id },
+      where: { id: req.user.id },
       data: {
         resetToken: token,
       },
@@ -43,7 +43,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     await createLog({
       action: "PASS_RESET_REQ",
       actorId: req.user.id ?? null,
-      target: req.body.id,
+      target: req.user.id,
       statusCode: 200,
       ipAddress: req.ip ?? null,
       userAgent: req.headers["user-agent"] ?? null,
@@ -55,7 +55,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     await createLog({
       action: "PASS_RESET_REQ",
       actorId: req.user.id ?? null,
-      target: req.body.id,
+      target: req.user.id,
       statusCode: 500,
       ipAddress: req.ip ?? null,
       userAgent: req.headers["user-agent"] ?? null,

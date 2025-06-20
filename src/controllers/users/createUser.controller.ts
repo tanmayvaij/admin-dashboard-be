@@ -9,7 +9,7 @@ export const createUserController = async (req: Request, res: Response) => {
     if (await prisma.user.findUnique({ where: { email: req.body.email } })) {
       await createLog({
         action: "USER_CREATED",
-        actorId: req.user.id ?? null,
+        actorId: req.user?.id ?? null,
         target: null,
         statusCode: 409,
         ipAddress: req.ip ?? null,
@@ -33,7 +33,7 @@ export const createUserController = async (req: Request, res: Response) => {
 
     await createLog({
       action: "USER_CREATED",
-      actorId: req.user.id ?? null,
+      actorId: req.user?.id ?? null,
       target: createdUser.id,
       statusCode: 201,
       ipAddress: req.ip ?? null,
@@ -50,7 +50,7 @@ export const createUserController = async (req: Request, res: Response) => {
   } catch (err) {
     await createLog({
       action: "USER_CREATED",
-      actorId: req.user.id ?? null,
+      actorId: req.user?.id ?? null,
       target: null,
       statusCode: 500,
       ipAddress: req.ip ?? null,

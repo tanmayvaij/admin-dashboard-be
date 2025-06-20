@@ -25,7 +25,8 @@ export const tokenCheck = (req: Request, res: Response, next: NextFunction) => {
   try {
     req.user = verify(token, process.env.JWT_SECRET!) as JwtPayload;
     next();
-  } catch {
+  } catch(err) {
+    console.log(err);
     res
       .status(401)
       .json({ errorMessage: "Unauthorized access, invalid token" });

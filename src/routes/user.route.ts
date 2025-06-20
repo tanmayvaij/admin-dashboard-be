@@ -10,7 +10,6 @@ import {
 import { updateUserSchemaValidator, userSchemaValidator } from "../validators";
 import {
   roleCheck,
-  superAdminByPass,
   tokenCheck,
   validateRequestBody,
 } from "../middlewares";
@@ -20,7 +19,8 @@ export const userRouter = Router();
 userRouter
   .route("/")
   .post(
-    superAdminByPass(tokenCheck, roleCheck("ADMIN")),
+    tokenCheck,
+    roleCheck("ADMIN"),
     ...validateRequestBody(userSchemaValidator),
     createUserController
   );

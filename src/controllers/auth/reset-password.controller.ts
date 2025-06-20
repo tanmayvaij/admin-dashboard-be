@@ -12,7 +12,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       await createLog({
         action: "RESET_PASS_ACTION",
         actorId: req.user.id ?? null,
-        target: req.body.id,
+        target: req.user.id,
         statusCode: 400,
         ipAddress: req.ip ?? null,
         userAgent: req.headers["user-agent"] ?? null,
@@ -30,7 +30,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       await createLog({
         action: "RESET_PASS_ACTION",
         actorId: req.user.id ?? null,
-        target: req.body.id,
+        target: req.user.id,
         statusCode: 400,
         ipAddress: req.ip ?? null,
         userAgent: req.headers["user-agent"] ?? null,
@@ -51,7 +51,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       await createLog({
         action: "RESET_PASS_ACTION",
         actorId: req.user.id ?? null,
-        target: req.body.id,
+        target: req.user.id,
         statusCode: 400,
         ipAddress: req.ip ?? null,
         userAgent: req.headers["user-agent"] ?? null,
@@ -73,7 +73,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     await createLog({
       action: "RESET_PASS_ACTION",
       actorId: req.user.id ?? null,
-      target: req.body.id,
+      target: req.user.id,
       statusCode: 200,
       ipAddress: req.ip ?? null,
       userAgent: req.headers["user-agent"] ?? null,
@@ -85,7 +85,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     await createLog({
       action: "RESET_PASS_ACTION",
       actorId: req.user.id ?? null,
-      target: req.body.id,
+      target: req.user.id,
       statusCode: 200,
       ipAddress: req.ip ?? null,
       userAgent: req.headers["user-agent"] ?? null,
