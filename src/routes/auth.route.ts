@@ -1,6 +1,11 @@
 import { Router } from "express";
 
-import { loginController, verifyController } from "../controllers/auth";
+import {
+  loginController,
+  verifyController,
+  requestPasswordReset,
+  resetPassword,
+} from "../controllers/auth";
 import { tokenCheck, validateRequestBody } from "../middlewares";
 import { userSchemaValidator } from "../validators";
 
@@ -13,4 +18,11 @@ authRouter
     userSchemaValidator,
     loginController
   );
+
 authRouter.route("/verify").get(tokenCheck, verifyController);
+
+authRouter
+  .route("/request-password-reset")
+  .post(tokenCheck, requestPasswordReset);
+
+authRouter.route("/reset-password").post(tokenCheck, resetPassword);

@@ -26,15 +26,18 @@ enum UserAction {
   GET_ALL_PRODUCTS
   GET_PRODUCT_BY_ID
   USER_VERIFIED
+  PASS_RESET_REQ
+  RESET_PASS_ACTION
 }
 
 model User {
-  id        String   @unique @default(nanoid())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String    @unique @default(nanoid())
+  email            String    @unique
+  password         String
+  role             Role      @default(USER)
+  resetToken       String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 model Product {
