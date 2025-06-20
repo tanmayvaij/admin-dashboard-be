@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "UserAction" ADD VALUE 'USER_VERIFIED';
