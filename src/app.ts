@@ -1,8 +1,11 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
+import swaggerUi from "swagger-ui-express";
 
 import { rootRouter } from "./routes";
+import { rateLimiter } from "./middlewares";
+import { swaggerSpec } from "./docs/swagger";
 
 config();
 
@@ -10,11 +13,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/", rateLimiter, rootRouter);
 
-app.use("/", rootRouter)
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Admin Dashboard Backend start on port ${PORT}`);
+app.listen(5000, () => {
+  console.log("Admin Dashboard Backend start on port 5000");
 });
